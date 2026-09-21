@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="selenium-firefox-profile\**" />
+    <Content Remove="selenium-firefox-profile\**" />
+    <EmbeddedResource Remove="selenium-firefox-profile\**" />
+    <None Remove="selenium-firefox-profile\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NZPropertyScraper" Version="1.0.3" />
+    <PackageReference Include="QuestPDF" Version="2026.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DRIVERS\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DRIVERS\geckodriver.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
