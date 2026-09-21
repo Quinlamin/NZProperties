@@ -1,0 +1,38 @@
+﻿@page "/pdf"
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+
+<h3>pdf</h3>
+
+<input type="text" @bind="address" placeholder="Enter Address" @bind:event="oninput" />
+<button @onclick="CreatePDF">submit</button>
+
+@if (pdfExists && !isLoading)
+{
+    <button @onclick="Download">Download PDF</button>
+
+}else if (isLoading)
+{
+    <p>Loading</p>
+}
+@code {
+    public string address = "";
+    private string pdfLink = "";
+    private byte[] pdf;
+    private bool pdfExists = false;
+    private bool isLoading = false;
+    public void CreatePDF()
+    {
+        isLoading = true;
+        pdf = PDFBuilder.Build(address);
+        pdfLink = "test.pdf";
+        pdfExists = true;
+        isLoading = false;
+    }
+    private async Task Download()
+    {
+        using var stream = new MemoryStream(pdf);
+        using var streamRef = new DotNetStreamReference(stream);
+        await JS.InvokeVoidAsync("downloadFileFromStream", "test.pdf", streamRef);
+    }
+}
