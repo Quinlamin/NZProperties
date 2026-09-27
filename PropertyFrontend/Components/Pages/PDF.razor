@@ -1,4 +1,4 @@
-﻿@page "/pdf"
+﻿@page "/"
 @rendermode InteractiveServer
 @inject IJSRuntime JS
 
@@ -7,27 +7,39 @@
 <input type="text" @bind="address" placeholder="Enter Address" @bind:event="oninput" />
 <button @onclick="CreatePDF">submit</button>
 
-@if (pdfExists && !isLoading)
+@if (pdfExists)
 {
     <button @onclick="Download">Download PDF</button>
 
-}else if (isLoading)
+}else if (failed)
 {
-    <p>Loading</p>
+    <p>@failedText</p>
 }
 @code {
     public string address = "";
     private string pdfLink = "";
     private byte[] pdf;
     private bool pdfExists = false;
-    private bool isLoading = false;
+    private bool failed = false;
+    private string failedText { get; set; }
     public void CreatePDF()
     {
-        isLoading = true;
-        pdf = PDFBuilder.Build(address);
-        pdfLink = "test.pdf";
-        pdfExists = true;
-        isLoading = false;
+        try
+        {
+            pdf = PDFBuilder.Build(address);
+            pdfLink = "test.pdf";
+            pdfExists = true;
+            failed = false;
+        }
+        catch (Exception e)
+        {
+            pdfExists = false;
+            failedText = e.Message;
+            failed = true;
+        }
+        
+        
+        
     }
     private async Task Download()
     {
