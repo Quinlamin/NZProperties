@@ -35,5 +35,6 @@ namespace PropertyFrontend
             
             app.Run();
         }
+
     }
 }

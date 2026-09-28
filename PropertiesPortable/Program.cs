@@ -1,14 +1,26 @@
-﻿using QuestPDF;
 using NZPropertyScraper;
+
 using System.Security.Cryptography;
+using QuestPDF;
 using QuestPDF.Fluent;
+
 using QuestPDF.Infrastructure;
 using QuestPDF.Helpers;
-namespace PropertyFrontend
+namespace PropertiesPortable
 {
-    public static class PDFBuilder
+    internal static class Program
     {
-
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            // To customize application configuration such as set high DPI settings or default font,
+            // see https://aka.ms/applicationconfiguration.
+            ApplicationConfiguration.Initialize();
+            Application.Run(new PropertiesPortable());
+        }
         public static byte[] Build(string address)
         {
             QuestPDF.Settings.License = LicenseType.Community;
@@ -66,9 +78,9 @@ namespace PropertyFrontend
                                 header.Cell().Padding(0).Text("Property Address:   ");
                                 header.Cell().Padding(0).BorderBottom(1).Text(p.address);
                             });
-                            
+
                         });
-                        
+
                         x.Item().Table(table =>
                         {
                             table.ColumnsDefinition(collumns =>
@@ -83,7 +95,7 @@ namespace PropertyFrontend
                             });
 
                         });
-                        
+
                         x.Item().Table(table =>
                         {
                             table.ColumnsDefinition(collumns =>
@@ -152,7 +164,7 @@ namespace PropertyFrontend
                                 header.Cell().Padding(0).Text("Stove");
                                 header.Cell().Padding(0).Text("R/Hood");
                             });
-                            
+
                         });
                         x.Item().Table(table =>
                         {
@@ -248,7 +260,7 @@ namespace PropertyFrontend
                                 header.Cell().Padding(0).Text("Window Covering:s");
                                 header.Cell().Padding(0).BorderBottom(1);
                             });
-                            
+
                         });
                         x.Item().Table(table =>
                         {
@@ -329,7 +341,7 @@ namespace PropertyFrontend
                                 header.Cell().Padding(0).Text("BBQ Area");
                                 header.Cell().Padding(0).Text("Pool");
                                 header.Cell().Padding(0).Text("Other");
-                             });
+                            });
 
                         });
                         x.Item().Table(table =>
@@ -372,12 +384,12 @@ namespace PropertyFrontend
                         {
                             table.ColumnsDefinition(collumns =>
                             {
-                                
+
                                 collumns.RelativeColumn();
                             });
                             table.Header(header =>
                             {
-                                
+
                                 header.Cell().Padding(0).BorderBottom(1);
                             });
                         });
