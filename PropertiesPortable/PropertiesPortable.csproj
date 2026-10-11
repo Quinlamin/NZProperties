@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NZPropertyScraper" Version="1.0.9" />
+    <PackageReference Include="NZPropertyScraper" Version="1.0.12" />
     <PackageReference Include="QuestPDF" Version="2026.9.1" />
   </ItemGroup>
 
