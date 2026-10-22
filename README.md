@@ -2,4 +2,4 @@
 
 
 Install Script:
-curl -sL https://github.com/Quinlamin/NZProperties/blob/master/NZPropertiesInstallScript.sh | bash
+curl -sL https://raw.githubusercontent.com/Quinlamin/NZProperties/refs/heads/master/NZPropertiesInstallScript.sh | bash
