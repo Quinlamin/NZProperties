@@ -1,18 +1,30 @@
 #!/bin/bash
-if [[ $UID != 0 ]]; then
+set -euo pipefail
+
+if [[ $EUID -ne 0 ]]; then
     echo "Please run this script with sudo:"
-    echo "sudo $0 $*"
+    echo "sudo bash $0"
     exit 1
 fi
-echo "Installing Dotnet Runtime..."
-sudo dnf install -y -q dotnet-runtime-10.0
-echo "Installing ASPNETCORE Runtime..."
-sudo dnf install -y -q aspnetcore-runtime-10.0
+
+echo "Installing .NET Runtime..."
+dnf install -y dotnet-runtime-10.0
+
+echo "Installing ASP.NET Core Runtime..."
+dnf install -y aspnetcore-runtime-10.0
+
 echo "Installing Firefox..."
-sudo dnf install -y -q firefox
-echo "Downloading NZProperties from github..."
-sudo wget https://github.com/Quinlamin/NZProperties/releases/download/Web-1.0.1/PropertyFrontend.1
-mkdir NZProperties
-unzip PropertyFrontend.1.0.1.linux-x86.zip -d NZProperties
-chmod -R +x NZProperties
-echo "Installation Complete"
+dnf install -y firefox
+
+echo "Downloading NZProperties from GitHub..."
+mkdir -p NZProperties
+cd NZProperties
+
+wget -O PropertyFrontend.zip \
+  https://github.com/Quinlamin/NZProperties/releases/download/Web-1.0.1/PropertyFrontend.1.0.1.linux-x86.zip
+
+echo "Extracting NZProperties..."
+unzip PropertyFrontend.zip
+chmod -R +x .
+
+echo "Installation complete."
